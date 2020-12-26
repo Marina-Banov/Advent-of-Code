@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>24B</title>
+    <script src="24B.js"></script>
+    <style>
+        body {
+            display: flex;
+            font-family: monospace;
+        }
+        textarea {
+            height: 500px;
+            margin: 10px;
+        }
+        div {
+            align-items: flex-end;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        span {
+            margin-left: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <textarea cols="45" id="steps"></textarea>
+    <div>
+        <button onclick="read()">SUBMIT</button>
+        <span>Total black tiles: <span id="res">0</span></span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>24A</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+    <script src="24A.js"></script>
+    <style>
+        body {
+            font-family: monospace;
+        }
+        main {
+            display: flex;
+        }
+        textarea {
+            height: 500px;
+            margin: 20px;
+        }
+        div {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        span {
+            margin-left: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="move(-1)">W</button>
+        <button onclick="move(-2*mapRadius-1)">NW</button>
+        <button onclick="move(-2*mapRadius)">NE</button>
+        <button onclick="move(1)">E</button>
+        <button onclick="move(2*mapRadius)">SE</button>
+        <button onclick="move(2*mapRadius-1)">SW</button>
+        <button onclick="flip()">FLIP</button>
+        <button onclick="home()">HOME</button>
+        <button onclick="read()">SUBMIT</button>
+        <button onclick="reset()">RESET</button>
+        <span>Total black tiles: <span id="res">0</span></span>
+    </div>
+    <main>
+        <textarea cols="45" id="steps"></textarea>
+    </main>
+</body>
+</html>
