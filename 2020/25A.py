@@ -16,5 +16,6 @@ def decrypt(public, private):
     return init
 
 
-public_a, public_b = map(int, input().strip().split())
+f = open("input.txt", 'r')
+public_a, public_b = map(int, [line.strip() for line in f.readlines()])
 print(decrypt(public_b, get_private_key(public_a)))

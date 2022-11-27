@@ -5,7 +5,7 @@ def calc_n_paths(i):
     return paths[i]
 
 
-charges = list(map(int, open("input.txt", "r").read().strip().split()))
+charges = list(map(int, open("input.txt", 'r').read().strip().split()))
 charges.append(0)
 charges = sorted(charges)
 charges.append(charges[-1] + 3)

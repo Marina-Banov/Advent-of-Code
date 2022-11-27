@@ -10,13 +10,13 @@ def read_from_file(f):
     max_r = 0
 
     i = 0
-    while f[i] != '\n':
-        range_borders = f[i].strip().split(': ')[1].split(' or ')
+    while f[i] != "\n":
+        range_borders = f[i].strip().split(": ")[1].split(" or ")
         r1, r2 = get_range(range_borders[0]), get_range(range_borders[1])
         min_r = min(min_r, r1[0], r2[0])
         max_r = max(max_r, r1[1], r2[1])
         ranges.append({
-            "name": f[i].strip().split(': ')[0],
+            "name": f[i].strip().split(": ")[0],
             "r1": r1,
             "r2": r2,
             "position": None
@@ -31,7 +31,7 @@ def read_from_file(f):
     i += 3
     while i < len(f):
         t = list(map(int, f[i].strip().split(',')))
-        if all([x > min_r and x < max_r for x in t]):
+        if all([min_r < x < max_r for x in t]):
             tickets.append(t)
         i += 1
 
@@ -71,7 +71,7 @@ def find_ticket_fields(ranges, tickets):
 
 
 def main():
-    ranges, tickets = read_from_file(open("input.txt", "r").readlines())
+    ranges, tickets = read_from_file(open("input.txt", 'r').readlines())
     ruleset = find_ticket_fields(ranges, tickets)
     indices = [rule["position"] for rule in ruleset if "departure" in rule["name"]]
     res = 1
@@ -80,5 +80,5 @@ def main():
     print(res)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

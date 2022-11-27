@@ -12,7 +12,7 @@ class Tree:
         return children
 
     def print_tree(self, level=0):
-        print('   ' * level, self.times, self.data)
+        print("   " * level, self.times, self.data)
         for child in self.children:
             child.print_tree(level+1)
 
@@ -23,20 +23,20 @@ class Tree:
         return node_sum
 
 
-lines = open("input.txt", "r").read().strip().split('\n')
-root = Tree('shiny gold', 1)
-rules = ['shiny gold']
+lines = open("input.txt", 'r').read().strip().split("\n")
+root = Tree("shiny gold", 1)
+rules = ["shiny gold"]
 
 for rule in rules:
     for line in lines:
         words = line.split()
-        if rule == " ".join(words[:2]):
+        if rule == ' '.join(words[:2]):
             nodes = root.get_all_nodes_with_name(rule, [])
             i = 4
             while i < len(words):
-                new = " ".join(words[i+1:i+3])
+                new = ' '.join(words[i+1:i+3])
                 for n in nodes:
-                    if words[i] != 'no' and next((x for x in n.children if x.data == new), None) is None:
+                    if words[i] != "no" and next((x for x in n.children if x.data == new), None) is None:
                         n.children.append(Tree(new, int(words[i])))
                 rules.append(new)
                 i += 4

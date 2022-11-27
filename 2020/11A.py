@@ -1,7 +1,7 @@
 from itertools import chain, product, starmap
 
 
-f = open("input.txt", "r").read().strip().split()
+f = open("input.txt", 'r').read().strip().split()
 
 # would prefer to work with boolean values rather than strings
 # creating a new, larger matrix

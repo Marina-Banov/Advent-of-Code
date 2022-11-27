@@ -1,7 +1,7 @@
 import math
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 estimate = int(f.readline().strip())
 buses = list(map(int, filter(lambda a: a != 'x', f.readline().strip().split(','))))
 min_estimate = math.inf

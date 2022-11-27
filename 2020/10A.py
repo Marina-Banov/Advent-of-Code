@@ -1,4 +1,4 @@
-charges = list(map(int, open("input.txt", "r").read().strip().split()))
+charges = list(map(int, open("input.txt", 'r').read().strip().split()))
 charges.append(0)
 charges = sorted(charges)
 ones = 0

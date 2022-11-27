@@ -9,7 +9,7 @@ def is_sum_of_two(n, preamble):
 
 
 def main():
-    f = open("input.txt", "r").read().strip().split()
+    f = open("input.txt", 'r').read().strip().split()
     numbers = list(map(int, f))
 
     for i in range(25, len(numbers)):
@@ -18,5 +18,5 @@ def main():
             break
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

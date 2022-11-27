@@ -24,13 +24,13 @@ def move_y(length):
     y += length
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 x = 0
 y = 0
 r = 0
 while True:
     instruction = f.readline().strip()
-    if instruction == '':
+    if instruction == "":
         print(abs(x) + abs(y))
         break
     if instruction[0] == 'E':

@@ -9,7 +9,7 @@ def should_skip(z, i):
     return count == 0
 
 
-f = open("input.txt", "r").read().strip().split()
+f = open("input.txt", 'r').read().strip().split()
 
 # similarly to day 11, would prefer to work with boolean values rather than strings
 # creating a new, larger matrix

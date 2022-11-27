@@ -17,11 +17,11 @@ def get_adjacent_seats(i, j):
 
 
 # adding floor around the given grid to avoid border checking
-f = open("input.txt", "r").read().strip().split()
+f = open("input.txt", 'r').read().strip().split()
 rows, cols = len(f) + 2, len(f[0]) + 2
 f.insert(0, '.' * cols)
 for i in range(1, rows-1):
-    f[i] = ''.join(('.', f[i], '.'))
+    f[i] = "".join(('.', f[i], '.'))
 f.append('.' * cols)
 
 # would prefer to work with boolean values rather than strings

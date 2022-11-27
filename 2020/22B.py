@@ -3,7 +3,7 @@ def read_cards(f):
     f.readline()
     while True:
         n = f.readline().strip()
-        if n == '':
+        if n == "":
             return player
         player.append(int(n))
 
@@ -43,12 +43,12 @@ def new_game(player_one, player_two):
 
 
 def main():
-    f = open("input.txt", "r")
+    f = open("input.txt", 'r')
     player_one = read_cards(f)
     player_two = read_cards(f)
     winner = new_game(player_one, player_two)
     print(calc_score(player_one if winner == 1 else player_two))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

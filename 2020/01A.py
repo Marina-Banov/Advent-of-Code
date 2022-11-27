@@ -1,6 +1,6 @@
 import sys
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 less = []
 more = []
 exact = 0

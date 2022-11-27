@@ -1,10 +1,10 @@
-lines = open("input.txt", "r").read().strip().split('\n')
-lines.append('')
+lines = open("input.txt", 'r').read().strip().split("\n")
+lines.append("")
 all_sum = 0
 group = []
 singles = []
 for i in range(len(lines)):
-    if lines[i] == '':
+    if lines[i] == "":
         n_passengers = len(group)
         group = sum(group, [])
         for s in singles:

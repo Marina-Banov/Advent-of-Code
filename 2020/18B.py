@@ -32,7 +32,7 @@ def create_req(string, i):
     return q, i
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 total = 0
 
 while True:

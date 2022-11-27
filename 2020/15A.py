@@ -1,4 +1,5 @@
-numbers = list(map(int, input().strip().split(',')))
+f = open("input.txt", 'r')
+numbers = list(map(int, f.readline().strip().split(',')))
 game = []
 for i in range(len(numbers)):
     game.append({

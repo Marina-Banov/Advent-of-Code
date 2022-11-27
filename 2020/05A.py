@@ -14,11 +14,11 @@ def binary_decode(sequence, lower, n):
     return mid
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 max_id = 0
 while True:
     b_pass = f.readline().strip()
-    if b_pass == '':
+    if b_pass == "":
         break
     seat_id = binary_decode(b_pass[:7], 'F', 128) * 8 + binary_decode(b_pass[7:10], 'L', 8)
     if seat_id > max_id:

@@ -1,4 +1,4 @@
-class Passport():
+class Passport:
     def __init__(self):
         self.byr = None
         self.iyr = None
@@ -27,13 +27,13 @@ class Passport():
         return 1
 
 
-content = open("input.txt", "r").read().strip().split('\n')
-content.append('')
+content = open("input.txt", 'r').read().strip().split("\n")
+content.append("")
 valid = 0
 p = Passport()
 
 for i in range(len(content)):
-    if content[i] == '':
+    if content[i] == "":
         valid += p.is_valid()
         p = Passport()
         continue

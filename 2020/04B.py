@@ -1,7 +1,7 @@
 import re
 
 
-class Passport():
+class Passport:
     def __init__(self):
         self.byr = None
         self.iyr = None
@@ -13,9 +13,9 @@ class Passport():
         self.cid = None
 
     def valid_hgt(self):
-        if self.hgt[-2:] == 'in':
+        if self.hgt[-2:] == "in":
             return int(self.hgt[:-2]) >= 59 and int(self.hgt[:-2]) <= 76
-        if self.hgt[-2:] == 'cm':
+        if self.hgt[-2:] == "cm":
             return int(self.hgt[:-2]) >= 150 and int(self.hgt[:-2]) <= 193
         return False
 
@@ -30,20 +30,20 @@ class Passport():
             return 0
         if self.hcl is None or not re.match(r"^#[a-f\d]{6}$", self.hcl):
             return 0
-        if self.ecl is None or self.ecl not in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
+        if self.ecl is None or self.ecl not in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
             return 0
         if self.pid is None or not re.match(r"^\d{9}$", self.pid):
             return 0
         return 1
 
 
-content = open("input.txt", "r").read().strip().split('\n')
-content.append('')
+content = open("input.txt", 'r').read().strip().split("\n")
+content.append("")
 valid = 0
 p = Passport()
 
 for i in range(len(content)):
-    if content[i] == '':
+    if content[i] == "":
         valid += p.is_valid()
         p = Passport()
         continue

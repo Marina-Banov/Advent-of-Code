@@ -6,14 +6,14 @@ def check_for_tree(path, i):
     return 0
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 trees = [0, 0, 0, 0, 0]
 x = [0, 0, 0, 0, 0]
 y = True
 
 while True:
     path = f.readline().strip()
-    if path == '':
+    if path == "":
         break
 
     for i in range(4):
