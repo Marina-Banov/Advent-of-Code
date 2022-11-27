@@ -19,7 +19,7 @@ def dfs(i, j, basin_size):
     return basin_size
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 lines = [list(map(int, list(line.strip()))) for line in f.readlines()]
 rows, cols = len(lines), len(lines[0])

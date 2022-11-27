@@ -1,10 +1,10 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 matrix = [['.']]
 
 while True:
     line = f.readline().strip()
-    if line == '':
+    if line == "":
         break
     x, y = list(map(int, line.split(',')))
 

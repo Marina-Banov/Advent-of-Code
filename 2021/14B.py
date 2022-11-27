@@ -12,10 +12,10 @@ class PolymerPairs():
         self.children = children
 
     def __repr__(self):
-        return f'{self.name}({self.count}) -> [{self.children[0]}, {self.children[1]}]'
+        return f"{self.name}({self.count}) -> [{self.children[0]}, {self.children[1]}]"
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 polymer = f.readline().strip()
 
 polymer_pairs = []
@@ -31,9 +31,9 @@ rules = []
 
 while True:
     line = f.readline().strip()
-    if line == '':
+    if line == "":
         break
-    name, insertion = line.split(' -> ')
+    name, insertion = line.split(" -> ")
     children = [name[0]+insertion, insertion+name[1]]
     pair = [p for p in polymer_pairs if p.name == name]
 

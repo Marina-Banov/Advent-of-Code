@@ -1,4 +1,4 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 positions = list(map(int, f.readline().strip().split(',')))
 avg = int(sum(positions) / len(positions))
 res = 0

@@ -1,8 +1,8 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 res = []
-chunk_start = '([{<'
-chunk_end = ')]}>'
+chunk_start = "([{<"
+chunk_end = ")]}>"
 for line in f:
     stack = []
     line = line.strip()

@@ -11,7 +11,7 @@ def increase_energy():
     return [[octopus+1 for octopus in row] for row in matrix]
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 matrix = [list(map(int, line.strip())) for line in f]
 adjacent = [get_adjacent(i, j) for i in range(10) for j in range(10)]

@@ -5,7 +5,7 @@ def add_element(j):
         count[j] = 1
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 polymer = f.readline().strip()
 count = {}
 
@@ -17,9 +17,9 @@ rules = []
 
 while True:
     line = f.readline().strip()
-    if line == '':
+    if line == "":
         break
-    pair, insertion = line.split(' -> ')
+    pair, insertion = line.split(" -> ")
     rules.append((pair[0], insertion, pair[1]))
 
 for i in range(10):

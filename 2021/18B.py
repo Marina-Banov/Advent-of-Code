@@ -1,7 +1,7 @@
 algorithm = __import__("18A")
 
 
-f = open("input.txt", "r").readlines()
+f = open("input.txt", 'r').readlines()
 numbers = [algorithm.create_node(line) for line in f]
 res = 0
 for i in range(len(numbers)):

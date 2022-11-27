@@ -3,7 +3,7 @@ import re
 
 matrix = [[0 for j in range(1000)] for i in range(1000)]
 
-with open("input.txt", "r") as f:
+with open("input.txt", 'r') as f:
     for line in f.readlines():
         x1, y1, x2, y2 = list(map(int, re.split(",| -> ", line.strip())))
         xs = list(range(min(x1, x2), max(x1+1, x2+1)))

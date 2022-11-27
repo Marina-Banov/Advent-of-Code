@@ -20,7 +20,7 @@ def get_bingo_scores(f, drawn):
 
     while True:
         chunk = f.read(n_bytes)
-        if chunk == '':
+        if chunk == "":
             break
         board = list(map(int, chunk.strip().split()))
         marked_tiles = []
@@ -39,8 +39,8 @@ def get_bingo_scores(f, drawn):
     return bingo_scores
 
 
-if __name__ == '__main__':
-    f = open("input.txt", "r")
+if __name__ == "__main__":
+    f = open("input.txt", 'r')
     drawn = list(map(int, f.readline().strip().split(',')))
     idx, _sum = min(get_bingo_scores(f, drawn))
     print(drawn[idx] * _sum)

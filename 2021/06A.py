@@ -1,5 +1,5 @@
 def main(n_days):
-    f = open("input.txt", "r")
+    f = open("input.txt", 'r')
     lanternfish = list(map(int,f.readline().strip().split(',')))
 
     bins = [[day, 0] for day in range(9)]
@@ -18,5 +18,5 @@ def main(n_days):
     print(sum([bins[i][1] for i in range(9)]))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(80)

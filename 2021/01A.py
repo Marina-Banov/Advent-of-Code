@@ -1,4 +1,4 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 count = 0
 prev = None
 while True:

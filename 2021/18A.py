@@ -81,7 +81,7 @@ class Node():
             tmp.left += self.right
 
     def __repr__(self):
-        return f'[{self.left},{self.right}]'
+        return f"[{self.left},{self.right}]"
 
 
 def create_node(string):
@@ -131,7 +131,7 @@ def reduce_snail_number(root):
 
 
 def main():
-    f = open("input.txt", "r")
+    f = open("input.txt", 'r')
     line = f.readline().strip()
     root = create_node(line)
 
@@ -142,5 +142,5 @@ def main():
     print(root.magnitude())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

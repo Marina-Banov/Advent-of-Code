@@ -1,4 +1,4 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 n = f.readline().strip()
 zeros = []
@@ -19,13 +19,13 @@ while len(n) > 0:
         else:
             ones[i] += 1
 
-gamma = ''
-epsilon = ''
+gamma = ""
+epsilon = ""
 for i in range(len(zeros)):
-	if zeros[i] > ones[i]:
-		gamma += '0'
-		epsilon += '1'
-	else:
-		gamma += '1'
-		epsilon += '0'
+    if zeros[i] > ones[i]:
+        gamma += '0'
+        epsilon += '1'
+    else:
+        gamma += '1'
+        epsilon += '0'
 print(int(gamma, 2) * int(epsilon, 2))

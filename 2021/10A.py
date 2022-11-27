@@ -1,8 +1,8 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 
 res = 0
-chunk_start = '([{<'
-chunk_end = ')]}>'
+chunk_start = "([{<"
+chunk_end = ")]}>"
 error_values = [3, 57, 1197, 25137]
 for line in f:
     stack = []

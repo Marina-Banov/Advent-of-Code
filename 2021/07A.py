@@ -1,4 +1,4 @@
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 positions = list(map(int, f.readline().strip().split(',')))
 positions.sort()
 mod = positions[int(len(positions)/2)]

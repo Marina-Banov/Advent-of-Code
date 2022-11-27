@@ -57,7 +57,7 @@ def limited_length_packets(limit):
     res = []
     while i < limit:
         res.append(analyze_packet())
-        if bits[i:] == '' or int(bits[i:]) == 0:
+        if bits[i:] == "" or int(bits[i:]) == 0:
             return res
     return res
 
@@ -70,7 +70,7 @@ def number_of_packets(n_):
     return res
 
 
-f = open("input.txt", "r")
+f = open("input.txt", 'r')
 n = f.readline().strip()
 bits = (bin(int(n, 16))[2:]).zfill(len(n) * 4)
 i = 0

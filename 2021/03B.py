@@ -21,7 +21,7 @@ def bit_criteria(res, condition):
     return res[0].strip()
 
 
-lines = open("input.txt", "r").readlines()
+lines = open("input.txt", 'r').readlines()
 oxy = bit_criteria(lines, lambda a, b: a > b)
 co2 = bit_criteria(lines, lambda a, b: a <= b)
 print(int(oxy, 2) * int(co2, 2))

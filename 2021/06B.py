@@ -1,1 +1,1 @@
-__import__('06A').main(256)
+__import__("06A").main(256)
