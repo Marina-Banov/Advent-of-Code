@@ -1,3 +1,6 @@
+from utils import count_chars
+
+
 def rank_by_type(count_map):
     if len(count_map) == 1:
         return 6
@@ -13,11 +16,6 @@ def rank_by_label(s, labels):
     for c in s:
         res = res * len(labels) + labels.index(c)
     return res
-
-
-def count_chars(s):
-    cc = {c: s.count(c) for c in set(s)}
-    return sorted(cc.items(), key=lambda x: -x[1])    
 
 
 def part_one(hand):

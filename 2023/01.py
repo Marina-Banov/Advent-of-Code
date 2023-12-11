@@ -1,4 +1,5 @@
 import re
+from utils import DIGITS_MAP
 
 
 def part_one(line):
@@ -6,13 +7,9 @@ def part_one(line):
 
 
 def part_two(line):
-    digits_map = {
-        "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
-        "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
-    }
     return list(map(
-        lambda s: digits_map[s] if s in digits_map.keys() else int(s),
-        re.findall(f"(?=({'|'.join(digits_map.keys())}|\d))", line)
+        lambda s: DIGITS_MAP[s] if s in DIGITS_MAP.keys() else int(s),
+        re.findall(f"(?=({'|'.join(DIGITS_MAP.keys())}|\d))", line)
     ))
 
 

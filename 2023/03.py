@@ -1,3 +1,6 @@
+from utils import dfs
+
+
 def get_part_numbers(trace, schematic):
     trace.sort()
     part_numbers = []
@@ -27,32 +30,8 @@ def part_two(trace, schematic):
     return part_numbers[0] * part_numbers[1] if len(part_numbers) == 2 else 0
 
 
-def in_range(i, j, max_rows, max_cols):
-    return 0 <= i < max_rows and 0 <= j < max_cols
-
-
-def adjacent_d(matrix, row, col, _filter=lambda *_: True):
-    di = [-1, -1, -1,  0, 0,  1, 1, 1]
-    dj = [-1,  0,  1, -1, 1, -1, 0, 1]
-    n_rows = len(matrix)
-    n_cols = len(matrix[0])
-    return [
-        (row + di[d], col + dj[d]) for d in range(8)
-        if in_range(row + di[d], col + dj[d], n_rows, n_cols)
-        and _filter(matrix, row + di[d], col + dj[d])
-    ]
-
-
-def is_not_dot(matrix, i, j):
-    return matrix[i][j] != "."
-
-
-def dfs(matrix, ui, uj, visited, trace):
-    visited[ui][uj] = True
-    for vi, vj in adjacent_d(matrix, ui, uj, is_not_dot):
-        if not visited[vi][vj]:
-            trace.append((vi, vj))
-            dfs(matrix, vi, vj, visited, trace)
+def is_not_dot(cur, step, _next):
+    return _next != "."
 
 
 def main(sum_el):
@@ -66,8 +45,9 @@ def main(sum_el):
         for col in range(n_cols):
             if not schematic[row][col].isdigit() or visited[row][col]:
                 continue
-            trace = [(row, col)]
-            dfs(schematic, row, col, visited, trace)
+            trace = dfs(schematic, row, col, diagonally=True, is_step_allowed=is_not_dot)
+            for ti, tj in trace:
+                visited[ti][tj] = True
             res += sum_el(trace, schematic)
     return res
 
