@@ -1,4 +1,4 @@
-from utils import find_all_in_matrix, distance_manhattan
+from utils import distance_manhattan, find_all_in_matrix
 
 
 def part_one():
