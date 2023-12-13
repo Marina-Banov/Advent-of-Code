@@ -63,3 +63,12 @@ def find_all_in_matrix(element, matrix):
 
 def distance_manhattan(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
+
+
+def print_s_matrix(matrix):
+    for row in matrix:
+        print("".join(row))
+
+
+def diff_letters(a, b):
+    return sum(a[i] != b[i] for i in range(len(a)))
