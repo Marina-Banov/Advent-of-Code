@@ -65,6 +65,13 @@ def distance_manhattan(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
+def matrix_to_s(matrix):
+    res = []
+    for row in matrix:
+        res.append("".join(row))
+    return "".join(res)
+
+
 def print_s_matrix(matrix):
     for row in matrix:
         print("".join(row))
