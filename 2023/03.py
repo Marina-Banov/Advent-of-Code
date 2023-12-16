@@ -1,4 +1,4 @@
-from utils import dfs
+from utils import traverse
 
 
 def get_part_numbers(trace, schematic):
@@ -30,7 +30,7 @@ def part_two(trace, schematic):
     return part_numbers[0] * part_numbers[1] if len(part_numbers) == 2 else 0
 
 
-def is_not_dot(cur, step, _next):
+def is_not_dot(_next, **_):
     return _next != "."
 
 
@@ -45,7 +45,11 @@ def main(sum_el):
         for col in range(n_cols):
             if not schematic[row][col].isdigit() or visited[row][col]:
                 continue
-            trace = dfs(schematic, row, col, diagonally=True, is_step_allowed=is_not_dot)
+            trace = traverse(
+                schematic, row, col,
+                diagonally=True,
+                is_step_allowed=is_not_dot,
+            )
             for ti, tj in trace:
                 visited[ti][tj] = True
             res += sum_el(trace, schematic)

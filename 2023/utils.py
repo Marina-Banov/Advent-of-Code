@@ -2,6 +2,7 @@ DIGITS_MAP = {
     "zero": 0, "one": 1, "two": 2, "three": 3, "four": 4,
     "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
 }
+DIRECTIONS = "UDLR"
 
 
 def count_chars(s):
@@ -13,7 +14,13 @@ def in_range(i, j, max_rows, max_cols):
     return 0 <= i < max_rows and 0 <= j < max_cols
 
 
-def adjacent(matrix, row, col, diagonally=False, is_step_allowed=lambda *_: True, sort_key=lambda *_: True):
+def adjacent(
+    matrix, row, col,
+    direction=0,
+    diagonally=False,
+    is_step_allowed=lambda *_: True,
+    sort_key=lambda *_: True,
+):
     if diagonally:
         di = [-1, -1, -1,  0, 0,  1, 1, 1]
         dj = [-1,  0,  1, -1, 1, -1, 0, 1]
@@ -24,27 +31,63 @@ def adjacent(matrix, row, col, diagonally=False, is_step_allowed=lambda *_: True
     n_rows = len(matrix)
     n_cols = len(matrix[0])
     return sorted([
-        (row + di[d], col + dj[d]) for d in range(len(di))
+        (row + di[d], col + dj[d], d) for d in range(len(di))
         if in_range(row + di[d], col + dj[d], n_rows, n_cols)
-        and is_step_allowed(matrix[row][col], d, matrix[row + di[d]][col + dj[d]])
+        and is_step_allowed(
+            cur=matrix[row][col],
+            step=d,
+            _next=matrix[row + di[d]][col + dj[d]],
+            direction=direction,
+        )
     ], key=lambda v: sort_key(matrix[v[0]][v[1]]))
 
 
-def dfs(matrix, ui, uj, continue_cond=lambda *_: True, break_cond=lambda *_: False, **kwargs):
+def traverse(
+    matrix, ui, uj,
+    dfs=True,
+    continue_cond=lambda *_: True,
+    break_cond=lambda *_: False,
+    **kwargs,
+):
     visited = [[False for _ in range(len(matrix))] for _ in range(len(matrix[0]))]
-    stack = [(ui, uj)]
+    to_visit = [(ui, uj)]
     trace = []
-    while len(stack):
-        ui, uj = stack.pop()
+    while len(to_visit):
+        ui, uj = to_visit.pop() if dfs else to_visit.pop(0)
         if visited[ui][uj] and continue_cond(matrix, ui, uj):
             continue
         trace.append((ui, uj))
         if break_cond(matrix, ui, uj, trace):
             break
         visited[ui][uj] = True
-        for vi, vj in adjacent(matrix, ui, uj, **kwargs):
+        for vi, vj, _ in adjacent(matrix, ui, uj, **kwargs):
             if not visited[vi][vj]:
-                stack.append((vi, vj))
+                to_visit.append((vi, vj))
+    return trace
+
+
+def traverse_direction_aware(
+    matrix, ui, uj, direction,
+    dfs=True,
+    continue_cond=lambda *_: True,
+    break_cond=lambda *_: False,
+    **kwargs,
+):
+    visited = [[[False] * 4 for _ in range(len(matrix))] for _ in range(len(matrix[0]))]
+    direction = DIRECTIONS.index(direction)
+    to_visit = [(ui, uj, direction)]
+    trace = set()
+    while len(to_visit):
+        ui, uj, direction = to_visit.pop() if dfs else to_visit.pop(0)
+        if visited[ui][uj][direction] and continue_cond(matrix, ui, uj):
+            continue
+        trace.add((ui, uj))
+        if break_cond(matrix, ui, uj, trace):
+            break
+        visited[ui][uj][direction] = True
+        for vi, vj, d in adjacent(matrix, ui, uj, direction, **kwargs):
+            if not visited[vi][vj][d]:
+                to_visit.append((vi, vj, d))
     return trace
 
 
