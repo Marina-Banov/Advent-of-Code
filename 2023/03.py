@@ -1,4 +1,4 @@
-from utils import traverse
+from utils import traverse, tuple_sum
 
 
 def get_part_numbers(trace, schematic):
@@ -30,8 +30,9 @@ def part_two(trace, schematic):
     return part_numbers[0] * part_numbers[1] if len(part_numbers) == 2 else 0
 
 
-def is_not_dot(_next, **_):
-    return _next != "."
+def is_not_dot(matrix, cur, diff, **_):
+    vi, vj = tuple_sum(cur, diff)
+    return matrix[vi][vj] != "."
 
 
 def main(sum_el):

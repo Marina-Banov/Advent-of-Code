@@ -1,7 +1,7 @@
 from utils import DIRECTIONS, traverse_direction_aware
 
 
-def is_step_allowed(cur, direction, step, **_):
+def is_step_allowed(matrix, cur, direction, step, **_):
     allowed_steps = {
         #        U     D     L     R
         ".":  [ "U",  "D",  "L",  "R"],
@@ -10,7 +10,8 @@ def is_step_allowed(cur, direction, step, **_):
         "/":  [ "R",  "L",  "D",  "U"],
         "\\": [ "L",  "R",  "U",  "D"],
     }
-    return DIRECTIONS[step] in allowed_steps[cur][direction]
+    c = matrix[cur[0]][cur[1]]
+    return DIRECTIONS[step] in allowed_steps[c][direction]
 
 
 def part_one(grid, ui=0, uj=0, direction="R"):
