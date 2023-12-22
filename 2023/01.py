@@ -9,7 +9,7 @@ def part_one(line):
 def part_two(line):
     return list(map(
         lambda s: DIGITS_MAP[s] if s in DIGITS_MAP.keys() else int(s),
-        re.findall(f"(?=({'|'.join(DIGITS_MAP.keys())}|\d))", line)
+        re.findall(rf"(?=({'|'.join(DIGITS_MAP.keys())}|\d))", line)
     ))
 
 
