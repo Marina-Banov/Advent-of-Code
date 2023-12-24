@@ -1,3 +1,4 @@
+from math import lcm
 import re
 
 
@@ -50,13 +51,19 @@ def part_one(modules):
 
 
 def part_two(modules):
-    i = 0
-    while True:
+    input_modules = ["rx"]
+    while len(input_modules) == 1:
+        dst = input_modules.pop()
+        input_modules = [m for m in modules if dst in modules[m].dst]
+    cycles = {m: 0 for m in input_modules}
+    i = 1
+    while not all(cycles.values()):
         steps = push(modules)
+        for step in steps:
+            if step[0] and step[2] in input_modules and not cycles[step[2]]:
+                cycles[step[2]] = i
         i += 1
-        if len([1 for step in steps if step[0] == False and step[1] == "rx"]):
-            break
-    return i
+    return lcm(*cycles.values())
 
 
 def main(res):
@@ -71,4 +78,4 @@ def main(res):
 
 if __name__ == "__main__":
     print(main(part_one))
-    # print(main(part_two))
+    print(main(part_two))
