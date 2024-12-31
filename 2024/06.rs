@@ -1,13 +1,11 @@
 use std::collections::HashSet;
 use std::io::{BufRead, BufReader};
 use std::fs::File;
+mod helpers;
+use helpers::in_bounds;
 
 const DIRSX: [isize; 4] = [ 0, 1, 0, -1];
 const DIRSY: [isize; 4] = [-1, 0, 1,  0];
-
-fn in_bounds(i: isize, j: isize, n_rows: usize, n_cols: usize) -> bool {
-    i >= 0 && j >= 0 && (i as usize) < n_rows && (j as usize) < n_cols
-}
 
 fn get_positions(traversed: &HashSet<(isize, isize, usize)>) -> HashSet<(isize, isize)> {
     traversed.into_iter().map(|(x, y, _)| (*x, *y)).collect()

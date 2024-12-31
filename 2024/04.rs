@@ -1,12 +1,10 @@
 use std::io::{BufRead, BufReader};
 use std::fs::File;
+mod helpers;
+use helpers::in_bounds;
 
 const DIRSX: [isize; 8] = [-1, 1,  1, -1, -1,  0, 0, 1];
 const DIRSY: [isize; 8] = [-1, 1, -1,  1,  0, -1, 1, 0];
-
-fn in_bounds(i: isize, j: isize, n_rows: usize, n_cols: usize) -> bool {
-    i >= 0 && j >= 0 && (i as usize) < n_rows && (j as usize) < n_cols
-}
 
 fn part_one(matrix: &Vec<Vec<char>>, i: usize, j: usize, n_rows: usize, n_cols: usize) -> i32 {
     if matrix[i][j] != 'X' {

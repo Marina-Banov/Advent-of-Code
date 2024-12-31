@@ -1,34 +1,14 @@
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use std::ops;
 use pathfinding::prelude::connected_components;
+mod helpers;
+use helpers::{Point, get_element};
 
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
-struct Point(isize, isize);
-
-impl Point {
-    const fn new(x: isize, y: isize) -> Point {
-        Self(x, y)
-    }
-
-    fn get_char(&self, matrix: &Vec<Vec<char>>) -> char {
-        matrix[self.0 as usize][self.1 as usize]
-    }
-}
-
-impl ops::Add for Point {
-    type Output = Self;
-
-    fn add(self, other: Self) -> Self::Output {
-        Point::new(self.0 + other.0, self.1 + other.1)
-    }
-}
-
-const NORTH: Point = Point::new(-1, 0);
-const SOUTH: Point = Point::new(1, 0);
-const EAST: Point = Point::new(0, 1);
-const WEST: Point = Point::new(0, -1);
+const NORTH: Point<isize> = Point::new(-1, 0);
+const SOUTH: Point<isize> = Point::new(1, 0);
+const EAST: Point<isize> = Point::new(0, 1);
+const WEST: Point<isize> = Point::new(0, -1);
 
 fn add_padding(matrix: Vec<Vec<char>>) -> Vec<Vec<char>> {
     let n_cols: usize = matrix[0].len();
@@ -44,27 +24,27 @@ fn add_padding(matrix: Vec<Vec<char>>) -> Vec<Vec<char>> {
     padded_matrix
 }
 
-fn part_one(region: &HashSet<Point>, matrix: &Vec<Vec<char>>) -> i32 {
+fn part_one(region: &HashSet<Point<isize>>, matrix: &Vec<Vec<char>>) -> i32 {
     region
         .iter()
         .map(|&cell|
             [NORTH, SOUTH, EAST, WEST]
                 .iter()
                 .map(|&dir| cell+dir)
-                .filter(|&neighbour| neighbour.get_char(matrix) != cell.get_char(matrix))
+                .filter(|&neighbour| get_element(matrix, neighbour) != get_element(matrix, cell))
                 .count() as i32
         )
         .sum()
 }
 
-fn part_two(region: &HashSet<Point>, matrix: &Vec<Vec<char>>) -> i32 {
+fn part_two(region: &HashSet<Point<isize>>, matrix: &Vec<Vec<char>>) -> i32 {
     region
         .iter()
         .filter(|&&cell|
             [NORTH, SOUTH, EAST, WEST, NORTH+EAST, NORTH+WEST, SOUTH+EAST, SOUTH+WEST]
                 .iter()
                 .map(|&dir| cell+dir)
-                .any(|neighbour| neighbour.get_char(matrix) != cell.get_char(matrix))
+                .any(|neighbour| get_element(matrix, neighbour) != get_element(matrix, cell))
         )
         .map(|&outer_cell|
             is_corner(outer_cell, NORTH, EAST, matrix)
@@ -75,16 +55,16 @@ fn part_two(region: &HashSet<Point>, matrix: &Vec<Vec<char>>) -> i32 {
         .sum()
 }
 
-fn is_corner(cell: Point, dir_ns: Point, dir_ew: Point, matrix: &Vec<Vec<char>>) -> i32 {
+fn is_corner(cell: Point<isize>, dir_ns: Point<isize>, dir_ew: Point<isize>, matrix: &Vec<Vec<char>>) -> i32 {
     // https://www.reddit.com/r/adventofcode/comments/1hcpyic/comment/m1q437r
-    let c: char = cell.get_char(matrix);
-    let c_ns: char = (cell + dir_ns).get_char(matrix);
-    let c_ew: char = (cell + dir_ew).get_char(matrix);
-    let c_diagonal: char = (cell + dir_ns + dir_ew).get_char(matrix);
+    let c: char = get_element(matrix, cell);
+    let c_ns: char = get_element(matrix, cell + dir_ns);
+    let c_ew: char = get_element(matrix, cell + dir_ew);
+    let c_diagonal: char = get_element(matrix, cell + dir_ns + dir_ew);
     ((c_ew != c && c_ns != c) || (c_diagonal != c && c_ew == c && c_ns == c)) as i32
 }
 
-fn main_fn(get_perimeter: &dyn Fn(&HashSet<Point>, &Vec<Vec<char>>) -> i32) -> i32 {
+fn main_fn(get_perimeter: &dyn Fn(&HashSet<Point<isize>>, &Vec<Vec<char>>) -> i32) -> i32 {
     let reader: BufReader<File> = BufReader::new(File::open("input").unwrap());
     let matrix: Vec<Vec<char>> = add_padding(
         reader.lines().map(|l| l.unwrap().chars().collect()).collect()
@@ -95,13 +75,13 @@ fn main_fn(get_perimeter: &dyn Fn(&HashSet<Point>, &Vec<Vec<char>>) -> i32) -> i
     connected_components(
         &(1..n_rows as isize-1)
             .flat_map(|i| (1..n_cols as isize-1).map(move |j| Point::new(i, j)))
-            .collect::<Vec<Point>>(),
+            .collect::<Vec<Point<isize>>>(),
         |&cell| {
             let m: &Vec<Vec<char>>  = &matrix;
             [NORTH, SOUTH, EAST, WEST]
                 .iter()
                 .map(move |&dir| cell + dir)
-                .filter(move |&neighbour| neighbour.get_char(m) == cell.get_char(m))
+                .filter(move |&neighbour| get_element(m, neighbour) == get_element(m, cell))
         }
     )
         .iter()

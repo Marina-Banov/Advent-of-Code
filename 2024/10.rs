@@ -2,10 +2,8 @@ use std::io::{BufRead, BufReader};
 use std::fs::File;
 use itertools::iproduct;
 use pathfinding::prelude::{count_paths, bfs};
-
-fn in_bounds(i: isize, j: isize, n_rows: usize, n_cols: usize) -> bool {
-    i >= 0 && j >= 0 && (i as usize) < n_rows && (j as usize) < n_cols
-}
+mod helpers;
+use helpers::in_bounds;
 
 fn find_all(matrix: &Vec<Vec<u32>>, digit: u32) -> Vec<(isize, isize)> {
     matrix.iter()
