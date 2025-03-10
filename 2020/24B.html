@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>24B</title>
     <script type="text/javascript">
@@ -13,7 +13,7 @@
             }
 
             getAdjacent() {
-                var adjacent = [
+                let adjacent = [
                     this.id-1,
                     this.id-2*mapRadius-1+(this.r % 2 ? 1 : 0),
                     this.id-2*mapRadius+(this.r % 2 ? 1 : 0),
@@ -25,15 +25,15 @@
             }
         }
 
-        var mapRadius = 65;
-        var tiles = [];
-        var stop = mapRadius*mapRadius*2 + mapRadius;
-        var minId = mapRadius*mapRadius*4;
-        var maxId = 0;
+        let mapRadius = 65;
+        let tiles = [];
+        let stop = mapRadius*mapRadius*2 + mapRadius;
+        let minId = mapRadius*mapRadius*4;
+        let maxId = 0;
 
-        for (var r = 0; r < mapRadius * 2; r++) {
-            var rOffset = Math.floor(r/2);
-            for (var q = -rOffset; q < (mapRadius*2) - rOffset; q++) {
+        for (let r = 0; r < mapRadius * 2; r++) {
+            let rOffset = Math.floor(r/2);
+            for (let q = -rOffset; q < (mapRadius*2) - rOffset; q++) {
                 tiles.push(new Tile(q, r, rOffset));
             }
         }
@@ -51,7 +51,7 @@
             stop = mapRadius*mapRadius*2 + mapRadius;
             steps.value.split(/\r?\n/).forEach(s => {
                 stop = mapRadius*mapRadius*2 + mapRadius;
-                var position = 0;
+                let position = 0;
                 while (position < s.length) {
                     switch (s[position]) {
                         case 'e':
@@ -61,11 +61,11 @@
                             move(-1);
                             break;
                         case 'n':
-                            move(-2*mapRadius - ((s[position+1] == 'w') ? 1 : 0));
+                            move(-2*mapRadius - ((s[position+1] === 'w') ? 1 : 0));
                             position++;
                             break;
                         case 's':
-                            move(2*mapRadius - ((s[position+1] == 'w') ? 1 : 0));
+                            move(2*mapRadius - ((s[position+1] === 'w') ? 1 : 0));
                             position++;
                             break;
                     }
@@ -78,7 +78,7 @@
                     maxId = stop;
                 }
             });
-            for (var i = 0; i < 100; i++) {
+            for (let i = 0; i < 100; i++) {
                 retile();
             }
             res.innerHTML = tiles.filter(t => t.flipped).length;
@@ -87,10 +87,10 @@
         function retile() {
             minId = Math.max(0, minId-2*mapRadius);
             maxId = Math.min(mapRadius*mapRadius*4, maxId+2*mapRadius);
-            var change = [];
+            let change = [];
             tiles.filter(t => t.id > minId && t.id < maxId).forEach(t => {
-                var adjacentBlack = t.adjacent.filter(t => tiles[t].flipped).length;
-                if ((t.flipped && adjacentBlack != 1 && adjacentBlack != 2) || (!t.flipped && adjacentBlack == 2)) {
+                let adjacentBlack = t.adjacent.filter(t => tiles[t].flipped).length;
+                if ((t.flipped && adjacentBlack !== 1 && adjacentBlack !== 2) || (!t.flipped && adjacentBlack === 2)) {
                     change.push(t.id);
                     if (t.id < minId) {
                         minId = t.id;
