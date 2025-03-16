@@ -1,4 +1,4 @@
-day9 = __import__("09A")
+day9 = __import__("09")
 
 
 class Program(day9.Program):
@@ -26,21 +26,29 @@ class Program(day9.Program):
 ADJACENT = [(0, 0), (-1, 0), (1, 0), (0, -1), (0, 1)]
 
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
+def part_one(ints):
     p = Program(ints, None)
     p.run()
-
     view = [list(row) for row in p.res.split()]
     res = 0
-    for i in range(1, len(view)-1):
-        for j in range(1, len(view[0])-1):
-            adjacent = [view[i+a[0]][j+a[1]] for a in ADJACENT]
+    for i in range(1, len(view) - 1):
+        for j in range(1, len(view[0]) - 1):
+            adjacent = [view[i + a[0]][j + a[1]] for a in ADJACENT]
             if all([el == '#' for el in adjacent]):
                 res += i * j
-    print(res)
+    return res
+
+
+def part_two(_):
+    return
+
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

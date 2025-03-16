@@ -1,4 +1,4 @@
-day9 = __import__("09A")
+day9 = __import__("09")
 
 
 TILES = ['#', '.', 'O', ' ']
@@ -18,6 +18,7 @@ class Graph:
         self.adjacency_list = self.create_adjacency_list()
         self.stack = []
         self.target = None
+        self.visited = [[False for _ in range(self.size_x)] for _ in range(self.size_y)]
 
     def create_adjacency_list(self):
         res = [[[] for j in range(self.size_x)] for i in range(self.size_y)]
@@ -27,10 +28,20 @@ class Graph:
                 for idx, rule in enumerate(RULES):
                     a = i + rule[0]
                     b = j + rule[1]
-                    if a >= 0 and b >= 0 and a < self.size_y and b < self.size_x and self.area[a][b] != '#':
+                    if 0 <= a < self.size_y and 0 <= b < self.size_x and self.area[a][b] != '#':
                         adjacent.append(idx)
                 res[i][j] = adjacent
         return res
+
+    def dfs_depth(self, source, depth):
+        i, j = source
+        if self.visited[i][j]:
+            return depth-1
+
+        self.visited[i][j] = True
+        neighbors = [(i + RULES[n][0], j + RULES[n][1]) for n in self.adjacency_list[i][j]]
+
+        return max([self.dfs_depth(n, depth+1) for n in neighbors])
 
     def dfs_strategy(self):
         adjacency_list = self.adjacency_list[self.y][self.x]
@@ -90,7 +101,7 @@ class Graph:
             i, j = parent[i][j]
         path.reverse()
         # print(path)
-        print(len(path))
+        return len(path)
 
     def set_adjacent_area(self, d, result):
         direction = RULES[d]
@@ -139,15 +150,29 @@ class Program(day9.Program):
                 self.i = self.perform_operation(instruction, *operands)
 
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
+def part_one(ints):
     p = Program(ints, None)
     graph = Graph((41, 41), (21, 21))
     p.run(graph)
     # print(graph)
-    graph.bfs((21, 21))
+    return graph.bfs((21, 21))
+
+
+def part_two(ints):
+    p = Program(ints, None)
+    graph = Graph((41, 41), (21, 21))
+    p.run(graph)
+    # print(graph)
+    graph.adjacency_list = graph.create_adjacency_list()
+    return graph.dfs_depth(graph.target, 0)
+
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

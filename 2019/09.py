@@ -1,5 +1,6 @@
 from enum import Enum
-day5 = __import__("05B")
+
+day5 = __import__("05")
 
 
 class Instruction(Enum):
@@ -35,10 +36,10 @@ class Program(day5.Program):
         if mode == Program.Mode.RELATIVE:
             self.expand_memory(self.ints[self.i + offset] + self.relative_base)
             return self.ints[self.i + offset] + self.relative_base
-    
+
     def expand_memory(self, limit):
         if limit >= len(self.ints) and limit < 1_000_000:
-            cpy = [0 for j in range(limit+1)]
+            cpy = [0 for j in range(limit + 1)]
             cpy[:len(self.ints)] = self.ints[:]
             self.ints = cpy
 
@@ -59,13 +60,24 @@ class Program(day5.Program):
                 self.i = self.perform_operation(instruction, *operands)
 
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
+def part_one(ints):
     p = Program(ints, 1)
     p.run()
-    print(p.res[0])
+    return p.res[0]
+
+
+def part_two(ints):
+    p = Program(ints, 2)
+    p.run()
+    return p.res[0]
+
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

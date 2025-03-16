@@ -1,4 +1,4 @@
-day9 = __import__("09A")
+day9 = __import__("09")
 
 
 class Program(day9.Program):
@@ -33,9 +33,7 @@ class Program(day9.Program):
         self.res = []
 
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
+def part_one(ints):
     grid = [[None for _ in range(50)] for _ in range(50)]
     p = Program(ints[:], None)
     for i in range(50):
@@ -43,8 +41,19 @@ def main():
             p.restart(ints[:], [i, j])
             p.run()
             grid[i][j] = p.res[0]
-    print(sum([row.count(1) for row in grid]))
+    return sum([row.count(1) for row in grid])
+
+
+def part_two(_):
+    return
+
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

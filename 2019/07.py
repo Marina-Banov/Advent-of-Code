@@ -1,10 +1,12 @@
 import itertools
-day7 = __import__("07A")
+
+day5 = __import__("05")
 
 
-class Program(day7.Program):
+class Program(day5.Program):
     def __init__(self, ints, inputs):
         super().__init__(ints, inputs)
+        self.inputs_i = 0
         self.done = False
 
     def interpret(self):
@@ -23,7 +25,6 @@ class Program(day7.Program):
                 self.done = True
                 return None
             instruction, operands = self.interpret()
-
             if instruction == Program.Instruction.INPUT:
                 if self.inputs_i == len(self.inputs):
                     return None
@@ -38,16 +39,24 @@ class Program(day7.Program):
                 self.i = self.perform_operation(instruction, *operands)
 
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
+def part_one(ints):
     max_r = 0
+    for settings in list(itertools.permutations([0, 1, 2, 3, 4])):
+        res = 0
+        for i in list(settings):
+            p = Program(ints[:], [i, res])
+            p.run()
+            res = p.res[-1]
+        max_r = max(max_r, res)
+    return max_r
 
+
+def part_two(ints):
+    max_r = 0
     for settings in list(itertools.permutations([5, 6, 7, 8, 9])):
         programs = []
-        for s in list(settings): 
+        for s in list(settings):
             programs.append(Program(ints[:], [s]))
-
         cur_prog = 0
         next_input = 0
         while not all([p.done for p in programs]):
@@ -56,11 +65,16 @@ def main():
             programs[cur_prog].run()
             next_input = programs[cur_prog].res[-1]
             cur_prog = (cur_prog + 1) % 5
-
         max_r = max(max_r, programs[4].res[-1])
+    return max_r
 
-    print(max_r)
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

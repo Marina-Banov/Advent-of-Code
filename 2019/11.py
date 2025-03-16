@@ -1,4 +1,4 @@
-day9 = __import__("09A")
+day9 = __import__("09")
 
 
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -38,15 +38,38 @@ class Program(day9.Program):
                 self.i += 2
             else:
                 self.i = self.perform_operation(instruction, *operands)
-        
 
-def main():
-    f = open("input.txt", 'r')
-    ints = list(map(int, f.readline().strip().split(',')))
-    p = Program(ints, [[0 for i in range(100)] for j in range(100)])
+
+def part_one(ints):
+    p = Program(ints, [[0 for _ in range(100)] for _ in range(100)])
     p.run()
-    print(len(p.visited))
+    return len(p.visited)
+
+
+def part_two(ints):
+    tiles = [[0 for _ in range(100)] for _ in range(100)]
+    tiles[50][50] = 1
+    p = Program(ints, tiles)
+    p.run()
+    white_tiles = [(i, j) for j in range(len(p.inputs)) for i, val in enumerate(p.inputs[j]) if val == 1]
+    min_x = min(tile[1] for tile in white_tiles)
+    min_y = min(tile[0] for tile in white_tiles)
+    max_x = max(tile[1] for tile in white_tiles)
+    max_y = max(tile[0] for tile in white_tiles)
+    res = [['#' if (i, j) in white_tiles else ' ' for i in range(min_y, max_y + 1)] for j in range(min_x, max_x + 1)]
+    res = map(list, zip(*res))
+    s = ""
+    for row in res:
+        s = s + "".join(row) + "\n"
+    return s
+
+
+def main(fn):
+    with open("input", "r") as f:
+        ints = list(map(int, f.readline().strip().split(',')))
+    return fn(ints)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))
