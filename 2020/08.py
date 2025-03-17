@@ -12,13 +12,17 @@ def run_game(lines):
         visited.append(i)
         i += jump
         if i == len(lines):
-            return (True, accumulator)
+            return True, accumulator
         if i in visited:
-            return (False, accumulator)
+            return False, accumulator
 
 
-def main():
-    lines = open("input.txt", 'r').readlines()
+def part_one(lines):
+    _, result = run_game(lines)
+    return result
+
+
+def part_two(lines):
     for i in range(len(lines)):
         line = lines[i].strip().split()
         if line[0] == "acc":
@@ -28,11 +32,17 @@ def main():
             lines_cpy[i] = "jmp " + line[1]
         else:
             lines_cpy[i] = "nop " + line[1]
-        res = run_game(lines_cpy)
-        if res[0] is True:
-            print(res[1])
-            break
+        flag, result = run_game(lines_cpy)
+        if flag:
+            return result
+
+
+def main(fn):
+    with open("input", "r") as f:
+        lines = f.readlines()
+    return fn(lines)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))

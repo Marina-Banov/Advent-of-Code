@@ -8,15 +8,14 @@ def is_sum_of_two(n, preamble):
     return False
 
 
-def main():
-    f = open("input.txt", 'r').read().strip().split()
-    numbers = list(map(int, f))
-
+def part_one(numbers):
     for i in range(25, len(numbers)):
-        if not is_sum_of_two(numbers[i], numbers[i-25:i]):
-            invalid = numbers[i]
-            break
+        if not is_sum_of_two(numbers[i], numbers[i - 25:i]):
+            return numbers[i]
 
+
+def part_two(numbers):
+    invalid = part_one(numbers)
     chosen = []
     for i in numbers:
         chosen.append(i)
@@ -24,9 +23,15 @@ def main():
         while sum(chosen) > invalid:
             del chosen[j]
         if sum(chosen) == invalid:
-            print(min(chosen) + max(chosen))
-            break
+            return min(chosen) + max(chosen)
+
+
+def main(fn):
+    with open("input", "r") as f:
+        numbers = list(map(int, f.read().strip().split()))
+    return fn(numbers)
 
 
 if __name__ == "__main__":
-    main()
+    print(main(part_one))
+    print(main(part_two))
